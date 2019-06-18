@@ -5,7 +5,7 @@ import pandas as pd                           # to organise data in csv format
 
 ContestID = 'JUNE19A'
 #path = 'https://www.codechef.com/api/rankings/'+ContestID
-path = 'https://www.codechef.com/api/rankings/'+ContestID+'?sortBy=score&order=desc&page=1&itemsPerPage=100&fbclid=IwAR08gwUo_Opd6La9ha1OWvVdepRGpUeZK-bBxTc9tCjNL0G6MXEQEgjk4-Q'
+path = 'https://www.codechef.com/api/rankings/'+ContestID+'?sortBy=score&order=desc&page=1&itemsPerPage=100'
 req = Request(path , headers = {'User-Agent':'Mozilla/5.0'})
 webpage = urlopen(req)
 obj = json.load(webpage)
