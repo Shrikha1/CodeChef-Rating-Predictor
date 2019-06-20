@@ -2,20 +2,15 @@
 from urllib.request import Request, urlopen 
 import urllib,json                            
 import pandas as pd                           
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
 
 ContestID = "JUNE19A"
 
 # get the max page_number 
-driver = webdriver.Chrome("C:/Users/Shrikha/Desktop/chromedriver_win32/chromedriver.exe") # Take the absolute path for Chrome Driver 
-path1 = "https://www.codechef.com/rankings/"+ContestID
-driver.get(path1)
-wait = WebDriverWait(driver,600)
-page_numbers = driver.find_elements_by_xpath('//*[@id="ember392"]/div[2]/div[3]/ul/li')
-pagef = [x.text for x in page_numbers]
-last_pagen = int(pagef[-1])
-driver.close()
+path1 = 'https://www.codechef.com/api/rankings/'+ContestID+'&itemsPerPage=100'
+req1 = Request(path1 , headers = {'User-Agent':'Mozilla/5.0'})
+webpage1 = urlopen(req1)
+obj1 = json.load(webpage1)
+last_pagen = obj1['availablePages']
 
 # Declaring necessary variables
 pages = [str(i) for i in range(1,last_pagen+1)]
@@ -47,4 +42,4 @@ for page in pages:
 df = pd.DataFrame({'user_handle':userHandle,'name':name},index = rank).sort_index()
 
 # Saving into a csv format
-df.to_csv('C:/users/Shrikha/Desktop/ContestRanking.csv')  
+df.to_csv('ContestRanking.csv')  
